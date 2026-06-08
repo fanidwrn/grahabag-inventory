@@ -39,7 +39,7 @@ $total_supplier = $suppliers->num_rows;
             <label>Cari Supplier</label>
             <div class="search-input-inner">
                 <img src="../assets/icons/search.png" alt="Search" class="table-icon-img">
-                <input type="text" id="tableSearch" placeholder="Masukkan Nama Supplier atau Email...">
+                <input type="text" id="tableSearch" placeholder="Cari Supplier...">
             </div>
         </div>
     </div>

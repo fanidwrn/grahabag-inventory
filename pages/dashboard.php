@@ -8,7 +8,6 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 
-// Mengambil Ringkasan Data Utama dari Database
 // Total Jenis Bahan
 $total_jenis_res = $conn->query("SELECT COUNT(*) as total FROM material");
 $total_jenis = $total_jenis_res->fetch_assoc()['total'];
@@ -23,7 +22,8 @@ $stok_kritis = $stok_kritis_res->fetch_assoc()['total'];
 
 // Ambil list bahan baku dengan nama kategorinya
 $query_material = "SELECT m.*, c.category_name FROM material m 
-                   JOIN category_id c ON m.category_id = c.category_id";
+                   JOIN category_id c ON m.category_id = c.category_id
+                   ORDER BY CASE WHEN m.stock <= m.minimum_stock THEN 0 ELSE 1 END ASC, m.material_name ASC";
 $materials = $conn->query($query_material);
 ?>
 
@@ -92,5 +92,6 @@ $materials = $conn->query($query_material);
         </tbody>
     </table>
 </div>
+<script src="../assets/main.js?v=<?= time(); ?>"></script>
 </body>
 </html>

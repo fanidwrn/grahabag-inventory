@@ -22,7 +22,7 @@ while ($sup = $suppliers_res->fetch_assoc()) {
     $suppliers_data[] = $sup;
 }
 
-// Menangani Filter Pencarian dan Tanggal jika ada kiriman data
+// Menangani Filter Pencarian dan Tanggal 
 $where_clauses = [];
 $start_date = isset($_GET['start_date']) ? $_GET['start_date'] : '';
 $end_date = isset($_GET['end_date']) ? $_GET['end_date'] : '';
@@ -87,7 +87,7 @@ $total_rows = $stock_entries->num_rows;
             <label>Cari Bahan Baku</label>
             <div class="search-input-inner">
                 <img src="../assets/icons/search.png" alt="Search" class="table-icon-img">
-                <input type="text" name="search" placeholder="Masukkan Kode atau Nama Bahan..." value="<?php echo htmlspecialchars($search_keyword); ?>">
+                <input type="text" name="search" placeholder="Masukkan Nama Bahan..." value="<?php echo htmlspecialchars($search_keyword); ?>">
             </div>
         </div>
 

@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // 1. LIVE FILTER SEARCH & PAGINATION UNTUK SEMUA TABEL
+  // LIVE FILTER SEARCH & PAGINATION UNTUK SEMUA TABEL
   const searchInputs = document.querySelectorAll("#tableSearch, #bahanSearch");
   let currentPage = 1;
   const itemsPerPage = 20;
@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const tbody = table.querySelector("tbody");
     const allRows = Array.from(tbody.querySelectorAll("tr"));
 
-    // Exclude empty state rows (like "Belum ada data")
+    // Exclude empty state rows
     const dataRows = allRows.filter((row) => !row.querySelector("td[colspan]"));
 
     // Apply search filter if any
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .slice(startIndex, endIndex)
       .forEach((row) => (row.style.display = ""));
 
-    // Show empty state if needed
+    // Show empty state
     const emptyRow = allRows.find((row) => row.querySelector("td[colspan]"));
     if (totalItems === 0 && dataRows.length > 0) {
       // All filtered out
@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (controlsEl) {
       let html = "";
 
-      // Prev btn
+      // Prev button
       if (currentPage > 1) {
         html += `<button type="button" class="btn-page" onclick="goToPage(${currentPage - 1})">&lt;</button>`;
       } else {
@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
         html += `<button type="button" class="btn-page" onclick="goToPage(${totalPages})">${totalPages}</button>`;
       }
 
-      // Next btn
+      // Next button
       if (currentPage < totalPages) {
         html += `<button type="button" class="btn-page" onclick="goToPage(${currentPage + 1})">&gt;</button>`;
       } else {
@@ -118,7 +118,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Expose to window so onclick works
   window.goToPage = function (page) {
     currentPage = page;
     renderPagination();
@@ -143,10 +142,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Initial render
   renderPagination();
 
-  // 2. TOGGLE SHOW/HIDE PASSWORD
+  // TOGGLE SHOW/HIDE PASSWORD
   const togglePassword = document.getElementById("togglePassword");
   const passwordInput = document.getElementById("passwordInput");
   const eyeIcon = document.getElementById("eyeIcon");
@@ -167,7 +165,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // 3. GENERIC MODAL HANDLER (OPEN/CLOSE)
+  // GENERIC MODAL HANDLER (OPEN/CLOSE)
   const openModalBtns = document.querySelectorAll(".btn-open-modal");
   const closeModalBtns = document.querySelectorAll(
     ".close-modal-btn, .btn-modal-cancel",
@@ -202,8 +200,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // 4. DATA PARSING UNTUK EDIT MODAL
-  // Bahan Baku Edit
+  // DATA PARSING UNTUK EDIT
+  // Edit Bahan Baku
   const editMaterialTriggers = document.querySelectorAll(".btnEditTrigger");
   editMaterialTriggers.forEach((btn) => {
     btn.addEventListener("click", function () {
@@ -217,7 +215,7 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("editMaterialModal").style.display = "flex";
     });
   });
-  // Supplier Edit
+  // Edit Supplier
   const editSupplierTriggers = document.querySelectorAll(
     ".btnEditSupplierTrigger",
   );
@@ -233,7 +231,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Stok Masuk Edit
+  // Edit Stok Masuk
   const editStockTriggers = document.querySelectorAll(".btnEditStockTrigger");
   editStockTriggers.forEach((btn) => {
     btn.addEventListener("click", function () {
@@ -249,7 +247,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Stok Keluar Edit
+  // Edit Stok Keluar
   const editStockOutTriggers = document.querySelectorAll(
     ".btnEditStockOutTrigger",
   );
@@ -267,7 +265,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // 5. GENERIC DELETE CONFIRMATION DIALOG
+  // DELETE CONFIRMATION DIALOG
   const deleteTriggers = document.querySelectorAll(".btn-delete-confirm");
   deleteTriggers.forEach((link) => {
     link.addEventListener("click", function (e) {
@@ -280,17 +278,17 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // 6. TOAST NOTIFICATION AUTO FADE-OUT
+  // TOAST NOTIFICATION
   const toast = document.getElementById("toastNotification");
   if (toast) {
     setTimeout(() => {
       toast.style.opacity = "0";
       toast.style.transform = "translateY(-20px)";
-      setTimeout(() => toast.remove(), 500);
+      setTimeout(() => toast.remove(), 300);
     }, 3500);
   }
 
-  // 7. DINAMIS MULTI-ITEM ROW CONTROLLER (STOK KELUAR)
+  // multirow stok keluar
   const btnAddNewRow = document.getElementById("btnAddNewRow");
   const dynamicItemContainer = document.getElementById("dynamicItemContainer");
 
@@ -300,7 +298,6 @@ document.addEventListener("DOMContentLoaded", function () {
       newRow.className = "bulk-item-row";
 
       let optionsHTML = '<option value="">-- Pilih Bahan Baku --</option>';
-      // masterMaterials is assumed to be defined in the global scope via PHP
       if (typeof masterMaterials !== "undefined") {
         masterMaterials.forEach((mat) => {
           optionsHTML += `<option value="${mat.material_id}">${mat.material_name} (Stok Tersedia: ${mat.stock} ${mat.unit})</option>`;
@@ -356,15 +353,15 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // 8. PENGAJUAN BAHAN MODAL & AJAX
+  // PENGAJUAN BAHAN MODAL
   const viewPengajuanTriggers = document.querySelectorAll(
     ".btnViewPengajuanTrigger",
   );
   if (viewPengajuanTriggers.length > 0) {
     viewPengajuanTriggers.forEach((btn) => {
       btn.addEventListener("click", function (e) {
-        // Prevent opening detail if clicking inside a button or anchor
-        if (e.target.closest('button') || e.target.closest('a')) {
+        // membuka detail
+        if (e.target.closest("button") || e.target.closest("a")) {
           return;
         }
         document.getElementById("viewMaterial").value = this.dataset.material;
@@ -391,10 +388,37 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("editContactMethod").value =
           this.dataset.method || "whatsapp";
         document.getElementById("editDesc").value = this.dataset.desc;
+        document.getElementById("editTotal").dispatchEvent(new Event("input"));
         document.getElementById("editPengajuanModal").style.display = "flex";
       });
     });
   }
+
+  // ESTIMASI HARGA PENGAJUAN
+  function calculateEstimate(materialSelectId, totalInputId, estimateDivId) {
+    const materialSelect = document.getElementById(materialSelectId);
+    const totalInput = document.getElementById(totalInputId);
+    const estimateDiv = document.getElementById(estimateDivId);
+
+    if (materialSelect && totalInput && estimateDiv) {
+      const updatePrice = () => {
+        const selectedOption =
+          materialSelect.options[materialSelect.selectedIndex];
+        const price = selectedOption
+          ? parseFloat(selectedOption.getAttribute("data-price") || 0)
+          : 0;
+        const total = parseFloat(totalInput.value || 0);
+        const estimatedPrice = price * total;
+        estimateDiv.innerHTML = `Perkiraan Harga: Rp ${estimatedPrice.toLocaleString("id-ID")}`;
+      };
+
+      materialSelect.addEventListener("change", updatePrice);
+      totalInput.addEventListener("input", updatePrice);
+    }
+  }
+
+  calculateEstimate("addMaterial", "addTotal", "addPriceEstimate");
+  calculateEstimate("editMaterial", "editTotal", "editPriceEstimate");
 
   const btnUpdateStatusTriggers = document.querySelectorAll(
     ".btnUpdateStatusTrigger",
@@ -436,7 +460,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
                 location.reload();
               } else {
-                location.reload(); // To show error toast
+                location.reload(); // Untuk menampilkan error toast
               }
             })
             .catch((err) => {

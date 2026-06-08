@@ -6,7 +6,8 @@ CREATE TABLE users (
     username VARCHAR(50) NOT NULL UNIQUE,
     full_name VARCHAR(100) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    role ENUM('admin', 'owner') NOT NULL
+    role ENUM('admin', 'owner') NOT NULL,
+    last_notif_read TIMESTAMP NULL
 ) ENGINE=InnoDB;
 
 CREATE TABLE login_logs (
@@ -51,6 +52,7 @@ CREATE TABLE material_purchase (
     contact_method ENUM('whatsapp', 'email') DEFAULT 'whatsapp',
     email_status ENUM('sent', 'not_sent') DEFAULT 'not_sent',
     description TEXT,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (material_id) REFERENCES material(material_id),
     FOREIGN KEY (supplier_id) REFERENCES suppliers(supplier_id),
     FOREIGN KEY (user_id) REFERENCES users(user_id)

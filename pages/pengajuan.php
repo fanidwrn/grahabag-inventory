@@ -60,11 +60,11 @@ $pengajuans = $conn->query($query_pengajuan);
 $total_pengajuan = $pengajuans->num_rows;
 
 // Ambil data bahan untuk dropdown form
-$materials_query = "SELECT material_id, material_name, unit FROM material ORDER BY material_name ASC";
+$materials_query = "SELECT material_id, material_name, unit, price FROM material ORDER BY material_name ASC";
 $materials = $conn->query($materials_query);
 $bahan_options = '';
 while($row = $materials->fetch_assoc()) {
-    $bahan_options .= "<option value='{$row['material_id']}'>" . htmlspecialchars($row['material_name']) . " (" . htmlspecialchars($row['unit']) . ")</option>";
+    $bahan_options .= "<option value='{$row['material_id']}' data-price='{$row['price']}'>" . htmlspecialchars($row['material_name']) . " (" . htmlspecialchars($row['unit']) . ")</option>";
 }
 
 // Ambil data supplier untuk dropdown form
@@ -310,6 +310,7 @@ while($row = $suppliers_res->fetch_assoc()) {
                     <div class="form-group-row">
                         <label for="addTotal">Jumlah Pengajuan</label>
                         <input type="number" id="addTotal" name="total" required min="1" placeholder="Misal: 100">
+                        <div id="addPriceEstimate" style="font-size: 13px; color: #475569; margin-top: 6px; font-weight: 500;">Perkiraan Harga: Rp 0</div>
                     </div>
                     <div class="form-group-row">
                         <label for="addContactMethod">Metode Kontak</label>
@@ -358,6 +359,7 @@ while($row = $suppliers_res->fetch_assoc()) {
                     <div class="form-group-row">
                         <label for="editTotal">Jumlah Pengajuan</label>
                         <input type="number" id="editTotal" name="total" required min="1">
+                        <div id="editPriceEstimate" style="font-size: 13px; color: #475569; margin-top: 6px; font-weight: 500;">Perkiraan Harga: Rp 0</div>
                     </div>
                     <div class="form-group-row">
                         <label for="editContactMethod">Metode Kontak</label>
@@ -381,6 +383,8 @@ while($row = $suppliers_res->fetch_assoc()) {
 </div>
 <?php endif; ?>
 
-</div> </div> <script src="../assets/main.js?v=<?= time(); ?>"></script>
+</div> 
+</div> 
+<script src="../assets/main.js?v=<?= time(); ?>"></script>
 </body>
 </html>

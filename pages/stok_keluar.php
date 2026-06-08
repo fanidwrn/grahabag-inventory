@@ -8,14 +8,14 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 
-// Ambil master data bahan baku untuk opsi pilihan di dalam modal dinamis
+// Ambil master data bahan baku
 $materials_res = $conn->query("SELECT material_id, material_name, unit, stock FROM material ORDER BY material_name ASC");
 $materials_data = [];
 while ($mat = $materials_res->fetch_assoc()) {
     $materials_data[] = $mat;
 }
 
-// Ambil parameter filter tanggal jika dikirimkan oleh user
+// Ambil parameter filter tanggal 
 $start_date = isset($_GET['start_date']) ? $_GET['start_date'] : '';
 $end_date = isset($_GET['end_date']) ? $_GET['end_date'] : '';
 $search_keyword = isset($_GET['search']) ? trim($_GET['search']) : '';
@@ -37,7 +37,7 @@ if (count($where_clauses) > 0) {
     $where_sql = "WHERE " . implode(" AND ", $where_clauses);
 }
 
-// Ambil riwayat stok keluar sesuai ERD (Join ke tabel material)
+// Ambil riwayat stok keluar (Join ke tabel material)
 $query_stock = "SELECT s.*, m.material_name, m.unit 
                 FROM stock_out s 
                 JOIN material m ON s.material_id = m.material_id 
@@ -79,7 +79,7 @@ $total_rows = $stock_entries->num_rows;
             <label>Cari Bahan Baku</label>
             <div class="search-input-inner">
                 <img src="../assets/icons/search.png" alt="Search" class="table-icon-img">
-                <input type="text" name="search" placeholder="Masukkan Kode atau Nama Bahan..." value="<?php echo htmlspecialchars($search_keyword); ?>">
+                <input type="text" name="search" placeholder="Masukkan Nama Bahan..." value="<?php echo htmlspecialchars($search_keyword); ?>">
             </div>
         </div>
 
@@ -105,7 +105,6 @@ $total_rows = $stock_entries->num_rows;
             <tbody>
                 <?php if ($total_rows > 0): ?>
                     <?php while($row = $stock_entries->fetch_assoc()): 
-                        // Jika format lama, ambil catatannya saja
                         $raw_desc = $row['description_out'];
                         $catatan = $raw_desc;
                         if (strpos($raw_desc, ' | ') !== false) {

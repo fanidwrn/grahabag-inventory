@@ -78,7 +78,6 @@ $total_bahan = $materials->num_rows;
             <tbody>
                 <?php if ($total_bahan > 0): ?>
                     <?php while($row = $materials->fetch_assoc()): 
-                        // Menentukan warna badge stok
                         $stok = $row['stock'];
                         $min_stok = $row['minimum_stock'];
                         
