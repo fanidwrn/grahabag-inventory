@@ -94,13 +94,12 @@ $total_rows = $stock_entries->num_rows;
             <thead>
                 <tr>
                     <th>TANGGAL</th>
-                    <th>ID BAHAN</th>
                     <th>NAMA BAHAN</th>
-                    <th style="text-align: right;">JUMLAH</th>
+                    <th>JUMLAH</th>
                     <th>SATUAN</th>
-                    <th>BUKTI</th>
+                    <th>FOTO</th>
                     <th>CATATAN</th>
-                    <th style="text-align: center;">AKSI</th>
+                    <th>AKSI</th>
                 </tr>
             </thead>
             <tbody>
@@ -113,16 +112,11 @@ $total_rows = $stock_entries->num_rows;
                             $parts = explode(' | ', $raw_desc);
                             $catatan = str_replace('Catatan: ', '', $parts[1]);
                         }
-                        
-                        $dt = strtotime($row['date_stock_out']);
-                        $months = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
-                        $display_date = date('d', $dt) . ' ' . $months[date('n', $dt)-1] . ' ' . date('Y', $dt);
                     ?>
                     <tr>
-                        <td><?php echo $display_date; ?></td>
-                        <td class="text-code-accent">BB-0<?php echo $row['material_id']; ?></td>
+                        <td><?php echo date('d/m/Y', strtotime($row['date_stock_out'])); ?></td>
                         <td class="text-material-name"><?php echo htmlspecialchars($row['material_name']); ?></td>
-                        <td style="text-align: right; font-weight: 700; color: #0f172a;"><?php echo number_format($row['total_out']); ?></td>
+                        <td><?php echo number_format($row['total_out']); ?></td>
                         <td><?php echo htmlspecialchars($row['unit']); ?></td>
                         <td>
                             <?php if (!empty($row['photo'])): ?>

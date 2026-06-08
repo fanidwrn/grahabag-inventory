@@ -54,7 +54,7 @@ $total_supplier = $suppliers->num_rows;
                     <th>NO TELEPON</th>
                     <th>ALAMAT</th>
                     <?php if ($role === 'owner'): ?>
-                    <th style="text-align: center;">AKSI</th>
+                    <th>AKSI</th>
                     <?php endif; ?>
                 </tr>
             </thead>

@@ -20,8 +20,18 @@ document.addEventListener("DOMContentLoaded", function () {
     if (filterInput) {
       const filter = filterInput.value.toLowerCase();
       if (filter) {
-        activeRows = dataRows.filter((row) => {
+        activeRows = activeRows.filter((row) => {
           return row.innerText.toLowerCase().includes(filter);
+        });
+      }
+    }
+
+    const categorySelect = document.getElementById("bahanCategory");
+    if (categorySelect) {
+      const catFilter = categorySelect.value.toLowerCase();
+      if (catFilter) {
+        activeRows = activeRows.filter((row) => {
+          return row.innerText.toLowerCase().includes(catFilter);
         });
       }
     }
@@ -117,6 +127,16 @@ document.addEventListener("DOMContentLoaded", function () {
   if (searchInputs.length > 0) {
     searchInputs.forEach((input) => {
       input.addEventListener("keyup", function () {
+        currentPage = 1;
+        renderPagination();
+      });
+    });
+  }
+
+  const categorySelects = document.querySelectorAll("#bahanCategory");
+  if (categorySelects.length > 0) {
+    categorySelects.forEach((select) => {
+      select.addEventListener("change", function () {
         currentPage = 1;
         renderPagination();
       });
@@ -342,7 +362,11 @@ document.addEventListener("DOMContentLoaded", function () {
   );
   if (viewPengajuanTriggers.length > 0) {
     viewPengajuanTriggers.forEach((btn) => {
-      btn.addEventListener("click", function () {
+      btn.addEventListener("click", function (e) {
+        // Prevent opening detail if clicking inside a button or anchor
+        if (e.target.closest('button') || e.target.closest('a')) {
+          return;
+        }
         document.getElementById("viewMaterial").value = this.dataset.material;
         document.getElementById("viewSupplier").value = this.dataset.supplier;
         document.getElementById("viewTotal").value = this.dataset.total;

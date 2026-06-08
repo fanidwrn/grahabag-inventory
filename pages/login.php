@@ -10,7 +10,7 @@ if (isset($_SESSION['username'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Graha Bag Inventory</title>
+    <title>Login | Graha Bag Inventory</title>
     <link rel="stylesheet" href="../assets/style.css?v=<?= time(); ?>">
 </head>
 <body class="login-body">

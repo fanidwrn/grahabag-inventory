@@ -10,6 +10,27 @@ if (!isset($_SESSION['username'])) {
 
 $role = $_SESSION['role'] ?? 'admin';
 
+$where_clauses = [];
+$start_date = isset($_GET['start_date']) ? $_GET['start_date'] : '';
+$end_date = isset($_GET['end_date']) ? $_GET['end_date'] : '';
+$search_keyword = isset($_GET['search']) ? trim($_GET['search']) : '';
+
+if (!empty($start_date)) {
+    $where_clauses[] = "mp.purchase_date >= '" . $conn->real_escape_string($start_date) . "'";
+}
+if (!empty($end_date)) {
+    $where_clauses[] = "mp.purchase_date <= '" . $conn->real_escape_string($end_date) . "'";
+}
+if (!empty($search_keyword)) {
+    $sk = $conn->real_escape_string($search_keyword);
+    $where_clauses[] = "(m.material_name LIKE '%$sk%' OR s.supplier_name LIKE '%$sk%')";
+}
+
+$where_sql = "";
+if (count($where_clauses) > 0) {
+    $where_sql = "WHERE " . implode(" AND ", $where_clauses);
+}
+
 // Ambil data pengajuan
 $query_pengajuan = "
     SELECT 
@@ -29,6 +50,7 @@ $query_pengajuan = "
     FROM material_purchase mp
     JOIN material m ON mp.material_id = m.material_id
     JOIN suppliers s ON mp.supplier_id = s.supplier_id
+    $where_sql
     ORDER BY 
         CASE WHEN mp.status = 'pending' THEN 1 ELSE 2 END,
         mp.purchase_date DESC, 
@@ -67,20 +89,36 @@ while($row = $suppliers_res->fetch_assoc()) {
             <h1 class="page-title-main">Pengajuan Bahan</h1>
             <p class="page-subtitle-main">Kelola permintaan pembelian bahan baku ke supplier.</p>
         </div>
-        <?php if ($role === 'admin'): ?>
+        <?php if ($role === 'admin' || $role === 'owner'): ?>
         <button class="btn-add-primary btn-open-modal" data-target="addPengajuanModal">＋ Buat Pengajuan</button>
         <?php endif; ?>
     </div>
 
-    <div class="filter-stok-wrapper">
+    <form action="" method="GET" class="filter-stok-wrapper">
+        <div class="filter-date-group">
+            <div class="date-input-box">
+                <label>Dari Tanggal</label>
+                <input type="date" name="start_date" value="<?php echo htmlspecialchars($start_date); ?>">
+            </div>
+            <div class="date-input-box">
+                <label>Sampai Tanggal</label>
+                <input type="date" name="end_date" value="<?php echo htmlspecialchars($end_date); ?>">
+            </div>
+        </div>
+        
         <div class="search-stock-box">
             <label>Cari Pengajuan</label>
             <div class="search-input-inner">
                 <img src="../assets/icons/search.png" alt="Search" class="table-icon-img">
-                <input type="text" id="tableSearch" placeholder="Cari Bahan atau Supplier...">
+                <input type="text" name="search" placeholder="Cari Bahan atau Supplier..." value="<?php echo htmlspecialchars($search_keyword); ?>">
             </div>
         </div>
-    </div>
+
+        <div class="filter-action-buttons">
+            <a href="pengajuan.php" class="btn-filter-reset">Reset</a>
+            <button type="submit" class="btn-filter-apply">Terapkan</button>
+        </div>
+    </form>
 
     <div class="content-table-wrapper">
         <table class="data-table">
@@ -92,13 +130,19 @@ while($row = $suppliers_res->fetch_assoc()) {
                     <th>JUMLAH</th>
                     <th>PESAN</th>
                     <th>STATUS</th>
-                    <th style="text-align: center;">AKSI</th>
+                    <th>AKSI</th>
                 </tr>
             </thead>
             <tbody>
                 <?php if ($total_pengajuan > 0): ?>
                     <?php while($row = $pengajuans->fetch_assoc()): ?>
-                    <tr>
+                    <tr class="btnViewPengajuanTrigger" style="cursor: pointer;"
+                        data-id="<?php echo $row['purchase_id']; ?>"
+                        data-material="<?php echo htmlspecialchars($row['material_name']); ?>"
+                        data-supplier="<?php echo htmlspecialchars($row['supplier_name']); ?>"
+                        data-total="<?php echo $row['total']; ?>"
+                        data-method="<?php echo htmlspecialchars($row['contact_method']); ?>"
+                        data-desc="<?php echo htmlspecialchars($row['description']); ?>">
                         <td><?php echo date('d/m/Y', strtotime($row['purchase_date'])); ?></td>
                         <td class="text-material-name"><?php echo htmlspecialchars($row['material_name']); ?></td>
                         <td><?php echo htmlspecialchars($row['supplier_name']); ?></td>
@@ -121,17 +165,6 @@ while($row = $suppliers_res->fetch_assoc()) {
                         </td>
                         <td style="text-align: center;">
                             <div class="action-buttons-flex" style="justify-content: center; gap: 8px;">
-                                
-                                <button class="btn-action-view btnViewPengajuanTrigger"
-                                        data-id="<?php echo $row['purchase_id']; ?>"
-                                        data-material="<?php echo htmlspecialchars($row['material_name']); ?>"
-                                        data-supplier="<?php echo htmlspecialchars($row['supplier_name']); ?>"
-                                        data-total="<?php echo $row['total']; ?>"
-                                        data-method="<?php echo htmlspecialchars($row['contact_method']); ?>"
-                                        data-desc="<?php echo htmlspecialchars($row['description']); ?>"
-                                        title="Detail">
-                                    <img src="../assets/icons/detail.png" alt="Detail" class="table-icon-img">
-                                </button>
 
                                 <?php if ($role === 'admin' && $row['status'] === 'pending'): ?>
                                     <button class="btn-action-edit btnEditPengajuanTrigger"
@@ -249,7 +282,7 @@ while($row = $suppliers_res->fetch_assoc()) {
     </div>
 </div>
 
-<?php if ($role === 'admin'): ?>
+<?php if ($role === 'admin' || $role === 'owner'): ?>
 <!-- Modal Tambah Pengajuan -->
 <div id="addPengajuanModal" class="modal-backdrop">
     <div class="modal-card">

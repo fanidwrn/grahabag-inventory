@@ -38,7 +38,7 @@ $role = $_SESSION['role'] ?? '';
     </ul>
 
     <div class="sidebar-footer">
-        <a href="logout.php" class="footer-link logout-btn">Logout</a>
+        <a href="logout.php" class="footer-link logout-btn" onclick="return confirm('Apakah Anda yakin ingin keluar dari sistem?');">Logout</a>
     </div>
 </div>
 <div class="main-content">

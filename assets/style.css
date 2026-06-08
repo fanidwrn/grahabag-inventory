@@ -363,8 +363,8 @@ body {
 }
 
 .table-icon-img {
-    width: 14px;
-    height: 14px;
+    width: 18px;
+    height: 18px;
     object-fit: contain;
     vertical-align: middle;
 }
@@ -377,16 +377,22 @@ body {
 }
 
 .data-table th {
-    background-color: #fafafa;
+    background-color: var(--light-gray);
     padding: 14px 20px;
     font-weight: 600;
     color: var(--text-secondary);
     border-bottom: 1px solid var(--border-color);
+    text-align: center;
 }
 
 .data-table td {
     padding: 14px 20px;
     border-bottom: 1px solid var(--border-color);
+    text-align: center;
+}
+
+.data-table tbody tr:hover {
+    background-color: var(--pale-white);
 }
 
 

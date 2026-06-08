@@ -102,32 +102,23 @@ $total_rows = $stock_entries->num_rows;
             <thead>
                 <tr>
                     <th>TANGGAL</th>
-                    <th>ID BAHAN</th>
                     <th>NAMA BAHAN</th>
                     <th>SUPPLIER</th>
-                    <th style="text-align: right;">JUMLAH</th>
+                    <th>JUMLAH</th>
                     <th>SATUAN</th>
                     <th>FOTO</th>
                     <th>CATATAN</th>
-                    <th style="text-align: center;">AKSI</th>
+                    <th>AKSI</th>
                 </tr>
             </thead>
             <tbody>
                 <?php if ($total_rows > 0): ?>
-                    <?php while($row = $stock_entries->fetch_assoc()): 
-                        $formatted_date = date('d Okan Y', strtotime($row['date_stock_in']));
-                        $months = array("Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des");
-                        $dt = strtotime($row['date_stock_in']);
-                        $display_date = date('d', $dt) . ' ' . $months[date('n', $dt)-1] . ' ' . date('Y', $dt);
-                    ?>
+                    <?php while($row = $stock_entries->fetch_assoc()): ?>
                     <tr>
-                        <td><?php echo $display_date; ?></td>
-                        <td class="text-code-accent">BB-0<?php echo $row['material_id']; ?></td>
+                        <td><?php echo date('d/m/Y', strtotime($row['date_stock_in'])); ?></td>
                         <td class="text-material-name"><?php echo htmlspecialchars($row['material_name']); ?></td>
                         <td><?php echo !empty($row['supplier_name']) ? htmlspecialchars($row['supplier_name']) : '-'; ?></td>
-                        <td style="text-align: right; font-weight: 700; color: #0f172a;">
-                            <?php echo number_format($row['total_in']); ?>
-                        </td>
+                        <td><?php echo number_format($row['total_in']); ?></td>
                         <td><?php echo htmlspecialchars($row['unit']); ?></td>
                         <td>
                             <?php if (!empty($row['photo'])): ?>

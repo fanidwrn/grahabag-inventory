@@ -25,8 +25,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     try {
-        $stmt = $conn->prepare("INSERT INTO material_purchase (material_id, supplier_id, user_id, total, purchase_date, status, contact_method, description) VALUES (?, ?, ?, ?, ?, 'pending', ?, ?)");
-        $stmt->bind_param("iiiisss", $material_id, $supplier_id, $user_id, $total, $purchase_date, $contact_method, $description);
+        $role = $_SESSION['role'] ?? 'admin';
+        $status = ($role === 'owner') ? 'approved' : 'pending';
+        $stmt = $conn->prepare("INSERT INTO material_purchase (material_id, supplier_id, user_id, total, purchase_date, status, contact_method, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("iiiissss", $material_id, $supplier_id, $user_id, $total, $purchase_date, $status, $contact_method, $description);
         
         if ($stmt->execute()) {
             $_SESSION['toast'] = ['type' => 'success', 'message' => 'Pengajuan berhasil ditambahkan'];

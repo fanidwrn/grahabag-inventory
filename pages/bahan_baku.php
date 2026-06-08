@@ -47,9 +47,18 @@ $total_bahan = $materials->num_rows;
                 <input type="text" id="bahanSearch" placeholder="Masukkan Nama Bahan atau Kategori...">
             </div>
         </div>
-        <div class="filter-action-buttons">
-            <button class="btn-filter-reset">Kategori</button>
-            <button class="btn-filter-reset">Urutkan</button>
+        <div class="filter-date-group">
+            <div class="date-input-box">
+                <label style="margin-bottom: 5px;">Kategori</label>
+                <select id="bahanCategory" style="width: 100%; padding: 8px 12px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none; background: white; font-size: 13px;">
+                    <option value="">Semua Kategori</option>
+                    <?php foreach($categories_data as $cat): ?>
+                        <option value="<?php echo htmlspecialchars($cat['category_name']); ?>">
+                            <?php echo htmlspecialchars($cat['category_name']); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
         </div>
     </div>
 
@@ -63,7 +72,7 @@ $total_bahan = $materials->num_rows;
                     <th>STOK</th>
                     <th>SATUAN</th>
                     <th>HARGA SATUAN</th>
-                    <th style="text-align: center;">AKSI</th>
+                    <th>AKSI</th>
                 </tr>
             </thead>
             <tbody>
