@@ -17,7 +17,7 @@ $role = $_SESSION['role'] ?? '';
         </li>
         
         <li class="<?php echo $current_page == 'supplier.php' ? 'active' : ''; ?>">
-            <a href="#supplier">Supplier</a>
+            <a href="supplier.php">Supplier</a>
         </li>
         
         <li class="<?php echo $current_page == 'bahan_baku.php' ? 'active' : ''; ?>">
@@ -30,7 +30,7 @@ $role = $_SESSION['role'] ?? '';
             <a href="stok_keluar.php">Stok Keluar</a>
         </li>
         <li class="<?php echo $current_page == 'pengajuan.php' ? 'active' : ''; ?>">
-            <a href="#pengajuan">Pengajuan Bahan</a>
+            <a href="pengajuan.php">Pengajuan Bahan</a>
         </li>
         <li class="<?php echo $current_page == 'laporan.php' ? 'active' : ''; ?>">
             <a href="#laporan">Laporan</a>
@@ -38,7 +38,6 @@ $role = $_SESSION['role'] ?? '';
     </ul>
 
     <div class="sidebar-footer">
-        <a href="#settings" class="footer-link">Settings</a>
         <a href="logout.php" class="footer-link logout-btn">Logout</a>
     </div>
 </div>

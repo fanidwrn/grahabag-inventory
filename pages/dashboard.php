@@ -74,7 +74,7 @@ $materials = $conn->query($query_material);
         <tbody>
             <?php while($row = $materials->fetch_assoc()): 
                 $is_kritis = $row['stock'] <= $row['minimum_stock'];
-                $status_class = $is_kritis ? 'status-kritis' : 'status-aman';
+                $status_class = $is_kritis ? 'badge-critical' : 'badge-safe';
                 $status_text = $is_kritis ? 'KRITIS' : 'AMAN';
                 $stock_class = $is_kritis ? 'text-danger-bold' : 'text-normal-bold';
             ?>
@@ -86,7 +86,7 @@ $materials = $conn->query($query_material);
                 <td><?php echo $row['unit']; ?></td>
                 <td><?php echo number_format($row['minimum_stock']); ?></td>
                 <td>Rp <?php echo number_format($row['price'], 0, ',', '.'); ?></td>
-                <td><span class="status-badge <?php echo $status_class; ?>"><?php echo $status_text; ?></span></td>
+                <td><span class="pill-stok <?php echo $status_class; ?>"><?php echo $status_text; ?></span></td>
             </tr>
             <?php endwhile; ?>
         </tbody>

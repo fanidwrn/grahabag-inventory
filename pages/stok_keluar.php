@@ -55,12 +55,12 @@ $total_rows = $stock_entries->num_rows;
 <?php endif; ?>
 
 <div class="stok-masuk-container">
-    <div class="stok-masuk-header">
+    <div class="page-header-action">
         <div class="header-left">
             <h1 class="page-title-main">Riwayat Stok Keluar</h1>
             <p class="page-subtitle-main">Catatan penggunaan bahan baku untuk produksi.</p>
         </div>
-        <button class="btn-tambah-stok" id="openAddStockOutModal">＋ Tambah Stok Keluar</button>
+        <button class="btn-add-primary btn-open-modal" data-target="addStockOutModal">＋ Tambah Stok Keluar</button>
     </div>
 
     <form action="" method="GET" class="filter-stok-wrapper">
@@ -142,7 +142,7 @@ $total_rows = $stock_entries->num_rows;
                                         data-catatan="<?php echo htmlspecialchars($catatan); ?>">
                                     <img src="../assets/icons/edit.png" alt="Edit" class="table-icon-img">
                                 </button>
-                                <a href="../api/delete_stock_out.php?id=<?php echo $row['stock_out_id']; ?>" class="btn-action-delete btnDeleteStockOutTrigger">
+                                <a href="../api/delete_stock_out.php?id=<?php echo $row['stock_out_id']; ?>" class="btn-action-delete btn-delete-confirm" data-confirm-message="Menghapus data pengeluaran ini akan otomatis mengembalikan jumlah kuantitas stok ke master data Bahan Baku. Lanjutkan?">
                                     <img src="../assets/icons/delete.png" alt="Delete" class="table-icon-img">
                                 </a>
                             </div>
@@ -172,7 +172,7 @@ $total_rows = $stock_entries->num_rows;
     <div class="modal-card" style="width: 700px; max-width: 90%;">
         <div class="modal-header">
             <h2>Form Pengeluaran Bahan Baku</h2>
-            <button class="close-modal-btn" id="closeAddStockOut">&times;</button>
+            <button type="button" class="close-modal-btn">&times;</button>
         </div>
         <form action="../api/add_stock_out.php" method="POST" enctype="multipart/form-data">
             <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
@@ -225,7 +225,7 @@ $total_rows = $stock_entries->num_rows;
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn-modal-cancel" id="cancelAddStockOut">Batal</button>
+                <button type="button" class="btn-modal-cancel">Batal</button>
                 <button type="submit" class="btn-modal-submit" style="background-color: #10b981;">Proses Keluar</button>
             </div>
         </form>
@@ -236,7 +236,7 @@ $total_rows = $stock_entries->num_rows;
     <div class="modal-card">
         <div class="modal-header">
             <h2>Edit Record Stok Keluar</h2>
-            <button class="close-modal-btn" id="closeEditStockOut">&times;</button>
+            <button type="button" class="close-modal-btn">&times;</button>
         </div>
         <form action="../api/update_stock_out.php" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="stock_out_id" id="edit_stock_out_id">
@@ -269,7 +269,7 @@ $total_rows = $stock_entries->num_rows;
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn-modal-cancel" id="cancelEditStockOut">Batal</button>
+                <button type="button" class="btn-modal-cancel">Batal</button>
                 <button type="submit" class="btn-modal-submit" style="background-color: #10b981;">Perbarui Record</button>
             </div>
         </form>

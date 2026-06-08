@@ -31,12 +31,12 @@ $total_bahan = $materials->num_rows;
 <?php endif; ?>
 
 <div class="bahan-baku-container">
-    <div class="bahan-baku-header">
+    <div class="page-header-action">
         <div class="header-left">
             <h1 class="page-title-main">Kelola Bahan Baku</h1>
             <p class="page-subtitle-main">Daftar inventaris material produksi.</p>
         </div>
-        <button class="btn-tambah-bahan" id="openAddModal">＋ Tambah Bahan</button>
+        <button class="btn-add-primary btn-open-modal" data-target="addMaterialModal">＋ Tambah Bahan</button>
     </div>
 
     <div class="filter-stok-wrapper">
@@ -105,7 +105,7 @@ $total_bahan = $materials->num_rows;
                                     <img src="../assets/icons/edit.png" alt="Edit" class="table-icon-img">
                                 </button>
                                 <a href="../api/delete_material.php?id=<?php echo $row['material_id']; ?>" 
-                                   class="btn-action-delete btnDeleteTrigger">
+                                   class="btn-action-delete btn-delete-confirm" data-confirm-message="Apakah Anda yakin ingin menghapus data bahan baku ini secara permanen?">
                                     <img src="../assets/icons/delete.png" alt="Delete" class="table-icon-img"> 
                                 </a>
                             </div>
@@ -121,7 +121,7 @@ $total_bahan = $materials->num_rows;
         </table>
         
         <div class="table-footer-pagination">
-            <div class="pagination-info">Menampilkan 1-<?php echo $total_bahan; ?> dari <?php echo $total_bahan; ?> Bahan</div>
+            <div class="pagination-info">Menampilkan 1-<?php echo $total_bahan; ?> dari <?php echo $total_bahan; ?> data</div>
             <div class="pagination-controls">
                 <button class="btn-page" disabled>&lt;</button>
                 <button class="btn-page page-active">1</button>
@@ -138,7 +138,7 @@ $total_bahan = $materials->num_rows;
     <div class="modal-card">
         <div class="modal-header">
             <h2>Tambah Bahan Baku Baru</h2>
-            <button class="close-modal-btn" id="closeAddModal">&times;</button>
+            <button type="button" class="close-modal-btn">&times;</button>
         </div>
         <form action="../api/add_material.php" method="POST">
             <div class="modal-body">
@@ -177,7 +177,7 @@ $total_bahan = $materials->num_rows;
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn-modal-cancel" id="cancelAddModal">Batal</button>
+                <button type="button" class="btn-modal-cancel">Batal</button>
                 <button type="submit" class="btn-modal-submit">Simpan Data</button>
             </div>
         </form>
@@ -188,7 +188,7 @@ $total_bahan = $materials->num_rows;
     <div class="modal-card">
         <div class="modal-header">
             <h2>Edit Bahan Baku</h2>
-            <button class="close-modal-btn" id="closeEditModal">&times;</button>
+            <button type="button" class="close-modal-btn">&times;</button>
         </div>
         <form action="../api/update_material.php" method="POST">
             <input type="hidden" name="material_id" id="edit_material_id">
@@ -228,13 +228,13 @@ $total_bahan = $materials->num_rows;
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn-modal-cancel" id="cancelEditModal">Batal</button>
+                <button type="button" class="btn-modal-cancel">Batal</button>
                 <button type="submit" class="btn-modal-submit">Perbarui Data</button>
             </div>
         </form>
     </div>
 </div>
 
-</div> </div> <script src="../assets/main.js"></script>
+</div> </div> <script src="../assets/main.js?v=<?= time(); ?>"></script>
 </body>
 </html>

@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         $conn->commit();
-        $_SESSION['toast'] = ['type' => 'success', 'message' => '📦 Sukses mengeluarkan item material pilihan ke divisi produksi!'];
+        $_SESSION['toast'] = ['type' => 'success', 'message' => 'Sukses mengeluarkan item material pilihan ke divisi produksi!'];
     } catch (Exception $e) {
         $conn->rollback();
         $_SESSION['toast'] = ['type' => 'error', 'message' => '✕ Gagal: ' . $e->getMessage()];

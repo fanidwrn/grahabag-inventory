@@ -63,12 +63,12 @@ $total_rows = $stock_entries->num_rows;
 <?php endif; ?>
 
 <div class="stok-masuk-container">
-    <div class="stok-masuk-header">
+    <div class="page-header-action">
         <div class="header-left">
             <h1 class="page-title-main">Riwayat Stok Masuk</h1>
             <p class="page-subtitle-main">Catatan penerimaan bahan baku dari supplier.</p>
         </div>
-        <button class="btn-tambah-stok" id="openAddStockModal">＋ Tambah Stok Masuk</button>
+        <button class="btn-add-primary btn-open-modal" data-target="addStockModal">＋ Tambah Stok Masuk</button>
     </div>
 
     <form action="" method="GET" class="filter-stok-wrapper">
@@ -149,7 +149,7 @@ $total_rows = $stock_entries->num_rows;
                                     <img src="../assets/icons/edit.png" alt="Edit" class="table-icon-img">
                                 </button>
                                 <a href="../api/delete_stock_in.php?id=<?php echo $row['stock_in_id']; ?>" 
-                                   class="btn-action-delete btnDeleteStockTrigger">
+                                   class="btn-action-delete btn-delete-confirm" data-confirm-message="Peringatan! Menghapus data ini akan otomatis mengurangi kembali jumlah stok pada master data Bahan Baku. Lanjutkan?">
                                     <img src="../assets/icons/delete.png" alt="Delete" class="table-icon-img">
                                 </a>
                             </div>
@@ -180,7 +180,7 @@ $total_rows = $stock_entries->num_rows;
     <div class="modal-card">
         <div class="modal-header">
             <h2>Tambah Stok Masuk Baru</h2>
-            <button class="close-modal-btn" id="closeAddStock">&times;</button>
+            <button type="button" class="close-modal-btn">&times;</button>
         </div>
         <form action="../api/add_stock_in.php" method="POST" enctype="multipart/form-data">
             <div class="modal-body">
@@ -228,7 +228,7 @@ $total_rows = $stock_entries->num_rows;
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn-modal-cancel" id="cancelAddStock">Batal</button>
+                <button type="button" class="btn-modal-cancel">Batal</button>
                 <button type="submit" class="btn-modal-submit">Simpan Stok</button>
             </div>
         </form>
@@ -239,7 +239,7 @@ $total_rows = $stock_entries->num_rows;
     <div class="modal-card">
         <div class="modal-header">
             <h2>Edit Record Stok Masuk</h2>
-            <button class="close-modal-btn" id="closeEditStock">&times;</button>
+            <button type="button" class="close-modal-btn">&times;</button>
         </div>
         <form action="../api/update_stock_in.php" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="stock_in_id" id="edit_stock_in_id">
@@ -283,7 +283,7 @@ $total_rows = $stock_entries->num_rows;
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn-modal-cancel" id="cancelEditStock">Batal</button>
+                <button type="button" class="btn-modal-cancel">Batal</button>
                 <button type="submit" class="btn-modal-submit">Perbarui Record</button>
             </div>
         </form>

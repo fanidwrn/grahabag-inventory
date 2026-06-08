@@ -26,8 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $conn->begin_transaction();
     try {
         // Memasukkan log ke tabel stock_in
-        $stmt = $conn->prepare("INSERT INTO stock_in (material_id, supplier_id, user_id, date_stock_in, total_in, description_in, photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("iiisssss", $material_id, $supplier_id, $user_id, $date_stock_in, $total_in, $description_in, $photo_filename);
+        $stmt = $conn->prepare("INSERT INTO stock_in (material_id, supplier_id, user_id, date_stock_in, total_in, description_in, photo) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("iiisiss", $material_id, $supplier_id, $user_id, $date_stock_in, $total_in, $description_in, $photo_filename);
         $stmt->execute();
 
         // Menambahkan kuantitas stok di tabel material utama

@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Update baris riwayat stok masuk
         $stmt = $conn->prepare("UPDATE stock_in SET material_id = ?, supplier_id = ?, date_stock_in = ?, total_in = ?, description_in = ?, photo = ? WHERE stock_in_id = ?");
-        $stmt->bind_param("iisisssi", $material_id, $supplier_id, $date_stock_in, $new_total, $description_in, $photo_filename, $stock_in_id);
+        $stmt->bind_param("iisissi", $material_id, $supplier_id, $date_stock_in, $new_total, $description_in, $photo_filename, $stock_in_id);
         $stmt->execute();
 
         // Update stok pada data master material (Mengurangi nilai lama, Menambahkan nilai baru)
