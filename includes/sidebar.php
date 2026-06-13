@@ -33,7 +33,7 @@ $role = $_SESSION['role'] ?? '';
             <a href="pengajuan.php">Pengajuan Bahan</a>
         </li>
         <li class="<?php echo $current_page == 'laporan.php' ? 'active' : ''; ?>">
-            <a href="#laporan">Laporan</a>
+            <a href="laporan.php">Laporan</a>
         </li>
     </ul>
 

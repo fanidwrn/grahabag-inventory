@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bind_param("ssssi", $supplier_name, $email, $no_telp, $address, $supplier_id);
         $stmt->execute();
         
-        $_SESSION['toast'] = ['type' => 'success', 'message' => 'Data supplier berhasil diperbarui!'];
+        $_SESSION['toast'] = ['type' => 'success', 'message' => 'Data supplier berhasil diperbarui.'];
     } catch (Exception $e) {
         $_SESSION['toast'] = ['type' => 'error', 'message' => 'Gagal memperbarui data supplier.'];
     }

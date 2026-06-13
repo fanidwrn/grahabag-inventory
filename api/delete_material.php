@@ -9,7 +9,7 @@ if (isset($_GET['id'])) {
     $stmt->bind_param("i", $id);
 
     if ($stmt->execute()) {
-        $_SESSION['toast'] = ['type' => 'danger', 'message' => 'Bahan baku berhasil dihapus dari sistem.'];
+        $_SESSION['toast'] = ['type' => 'success', 'message' => 'Data bahan baku berhasil dihapus.'];
     } else {
         $_SESSION['toast'] = ['type' => 'error', 'message' => 'Gagal menghapus bahan karena keterikatan relasi data.'];
     }

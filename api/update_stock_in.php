@@ -45,10 +45,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $adjust_new = $conn->query("UPDATE material SET stock = stock + $new_total WHERE material_id = $material_id");
 
         $conn->commit();
-        $_SESSION['toast'] = ['type' => 'success', 'message' => 'Perubahan data mutasi stok berhasil diperbarui!'];
+        $_SESSION['toast'] = ['type' => 'success', 'message' => 'Data stok masuk berhasil diperbarui!'];
     } catch (Exception $e) {
         $conn->rollback();
-        $_SESSION['toast'] = ['type' => 'error', 'message' => 'Terjadi kegagalan rekonsiliasi data stok.'];
+        $_SESSION['toast'] = ['type' => 'error', 'message' => 'Gagal memperbarui data stok'];
     }
 }
 header("Location: ../pages/stok_masuk.php");

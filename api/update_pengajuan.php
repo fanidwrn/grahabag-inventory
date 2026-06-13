@@ -48,9 +48,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bind_param("iiissi", $material_id, $supplier_id, $total, $contact_method, $description, $purchase_id);
         
         if ($stmt->execute()) {
-            $_SESSION['toast'] = ['type' => 'success', 'message' => 'Pengajuan berhasil diupdate'];
+            $_SESSION['toast'] = ['type' => 'success', 'message' => 'Data pengajuan berhasil diperbarui.'];
         } else {
-            $_SESSION['toast'] = ['type' => 'error', 'message' => 'Gagal mengupdate pengajuan'];
+            $_SESSION['toast'] = ['type' => 'error', 'message' => 'Gagal memperbarui data pengajuan.'];
         }
     } catch (Exception $e) {
         $_SESSION['toast'] = ['type' => 'error', 'message' => 'Database error: ' . $e->getMessage()];

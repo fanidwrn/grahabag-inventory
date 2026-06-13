@@ -17,10 +17,10 @@ if (isset($_GET['id'])) {
         $stmt->bind_param("i", $supplier_id);
         $stmt->execute();
         
-        $_SESSION['toast'] = ['type' => 'success', 'message' => 'Data supplier berhasil dihapus!'];
+        $_SESSION['toast'] = ['type' => 'success', 'message' => 'Data supplier berhasil dihapus.'];
     } catch (Exception $e) {
         // Jika gagal, mungkin karena constraint foreign key
-        $_SESSION['toast'] = ['type' => 'error', 'message' => 'Gagal menghapus supplier. Supplier ini mungkin sedang digunakan pada data transaksi (stok masuk/keluar).'];
+        $_SESSION['toast'] = ['type' => 'error', 'message' => 'Gagal menghapus data supplier. Supplier ini mungkin sedang digunakan pada data transaksi (stok masuk/keluar).'];
     }
 }
 

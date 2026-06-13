@@ -125,7 +125,7 @@ while($row = $suppliers_res->fetch_assoc()) {
             <thead>
                 <tr>
                     <th>TANGGAL</th>
-                    <th>BAHAN</th>
+                    <th>NAMA BAHAN</th>
                     <th>SUPPLIER</th>
                     <th>JUMLAH</th>
                     <th>PESAN</th>
@@ -207,7 +207,7 @@ while($row = $suppliers_res->fetch_assoc()) {
                                     </button>
                                 <?php endif; ?>
 
-                                <?php if ($role === 'owner' && $row['status'] === 'approved'): ?>
+                                <?php if (($role === 'admin' || $role === 'owner') && $row['status'] === 'approved'): ?>
                                     <?php if ($row['contact_method'] === 'whatsapp'): ?>
                                         <a href="https://wa.me/<?php 
                                             $phone = preg_replace('/[^0-9]/', '', $row['no_telp']);
@@ -231,7 +231,7 @@ while($row = $suppliers_res->fetch_assoc()) {
                     <?php endwhile; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="7" style="text-align: center; color: var(--text-secondary);">Belum ada data pengajuan.</td>
+                        <td colspan="7" style="text-align: center; color: var(--text-secondary); padding: 40px 0;">Belum ada data pengajuan.</td>
                     </tr>
                 <?php endif; ?>
             </tbody>

@@ -73,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['toast'] = ['type' => 'success', 'message' => 'Data stok keluar berhasil diperbarui!'];
     } catch (Exception $e) {
         $conn->rollback();
-        $_SESSION['toast'] = ['type' => 'danger', 'message' => 'Gagal: ' . $e->getMessage()];
+        $_SESSION['toast'] = ['type' => 'error', 'message' => 'Gagal memperbarui data stok'];
     }
 
     header("Location: ../pages/stok_keluar.php");

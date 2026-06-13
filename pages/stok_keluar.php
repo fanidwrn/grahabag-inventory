@@ -37,7 +37,7 @@ if (count($where_clauses) > 0) {
     $where_sql = "WHERE " . implode(" AND ", $where_clauses);
 }
 
-// Ambil riwayat stok keluar (Join ke tabel material)
+// Ambil riwayat stok keluar
 $query_stock = "SELECT s.*, m.material_name, m.unit 
                 FROM stock_out s 
                 JOIN material m ON s.material_id = m.material_id 
@@ -144,7 +144,7 @@ $total_rows = $stock_entries->num_rows;
                     <?php endwhile; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="8" style="text-align: center; color: var(--text-secondary); padding: 40px 0;">Tidak ada catatan pengeluaran bahan baku pada periode ini.</td>
+                        <td colspan="8" style="text-align: center; color: var(--text-secondary); padding: 40px 0;">Belum ada data stok keluar.</td>
                     </tr>
                 <?php endif; ?>
             </tbody>

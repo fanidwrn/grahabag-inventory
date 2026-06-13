@@ -38,10 +38,10 @@ if (isset($_GET['id'])) {
         }
 
         $conn->commit();
-        $_SESSION['toast'] = ['type' => 'danger', 'message' => 'Record mutasi stok keluar berhasil dibatalkan.'];
+        $_SESSION['toast'] = ['type' => 'success', 'message' => 'Data stok keluar berhasil dibatalkan.'];
     } catch (Exception $e) {
         $conn->rollback();
-        $_SESSION['toast'] = ['type' => 'error', 'message' => 'Gagal menghapus riwayat stok keluar.'];
+        $_SESSION['toast'] = ['type' => 'error', 'message' => 'Gagal menghapus data stok keluar.'];
     }
 }
 header("Location: ../pages/stok_keluar.php");

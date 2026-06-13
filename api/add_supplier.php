@@ -20,9 +20,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bind_param("ssss", $supplier_name, $email, $no_telp, $address);
         $stmt->execute();
         
-        $_SESSION['toast'] = ['type' => 'success', 'message' => 'Berhasil menambahkan data supplier baru!'];
+        $_SESSION['toast'] = ['type' => 'success', 'message' => 'Berhasil menambahkan data supplier.'];
     } catch (Exception $e) {
-        $_SESSION['toast'] = ['type' => 'error', 'message' => 'Gagal menambahkan supplier.'];
+        $_SESSION['toast'] = ['type' => 'error', 'message' => 'Gagal menambahkan data supplier.'];
     }
 }
 

@@ -50,7 +50,7 @@ $total_bahan = $materials->num_rows;
         <div class="filter-date-group">
             <div class="date-input-box">
                 <label style="margin-bottom: 5px;">Kategori</label>
-                <select id="bahanCategory" style="width: 100%; padding: 8px 12px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none; background: white; font-size: 13px;">
+                <select id="bahanCategory" style="width: 100%; padding: 8px 12px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none; background: white; font-size: 11px;">
                     <option value="">Semua Kategori</option>
                     <?php foreach($categories_data as $cat): ?>
                         <option value="<?php echo htmlspecialchars($cat['category_name']); ?>">
@@ -243,6 +243,7 @@ $total_bahan = $materials->num_rows;
     </div>
 </div>
 
-</div> </div> <script src="../assets/main.js?v=<?= time(); ?>"></script>
+</div> </div> 
+<script src="../assets/main.js?v=<?= time(); ?>"></script>
 </body>
 </html>

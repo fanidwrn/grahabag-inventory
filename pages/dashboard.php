@@ -23,7 +23,7 @@ $stok_kritis = $stok_kritis_res->fetch_assoc()['total'];
 // Ambil list bahan baku dengan nama kategorinya
 $query_material = "SELECT m.*, c.category_name FROM material m 
                    JOIN category_id c ON m.category_id = c.category_id
-                   ORDER BY CASE WHEN m.stock <= m.minimum_stock THEN 0 ELSE 1 END ASC, m.material_name ASC";
+                   ORDER BY CASE WHEN m.stock <= m.minimum_stock THEN 0 ELSE 1 END ASC, m.material_id ASC";
 $materials = $conn->query($query_material);
 ?>
 
@@ -80,7 +80,7 @@ $materials = $conn->query($query_material);
             ?>
             <tr>
                 <td>BB-0<?php echo $row['material_id']; ?></td>
-                <td><strong><?php echo $row['material_name']; ?></strong></td>
+                <td style="text-align: left;"><strong><?php echo $row['material_name']; ?></strong></td>
                 <td><?php echo $row['category_name']; ?></td>
                 <td class="<?php echo $stock_class; ?>"><?php echo number_format($row['stock']); ?></td>
                 <td><?php echo $row['unit']; ?></td>

@@ -14,9 +14,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param("isssid", $category_id, $name, $stock, $unit, $min_stock, $price);
 
     if ($stmt->execute()) {
-        $_SESSION['toast'] = ['type' => 'success', 'message' => 'Bahan baku baru berhasil ditambahkan!'];
+        $_SESSION['toast'] = ['type' => 'success', 'message' => 'Berhasil menambahkan data bahan baku.'];
     } else {
-        $_SESSION['toast'] = ['type' => 'error', 'message' => 'Gagal menambahkan bahan baku.'];
+        $_SESSION['toast'] = ['type' => 'error', 'message' => 'Gagal menambahkan data bahan baku.'];
     }
 }
 header("Location: ../pages/bahan_baku.php");

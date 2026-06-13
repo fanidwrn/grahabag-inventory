@@ -36,10 +36,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $update_stmt->execute();
 
         $conn->commit();
-        $_SESSION['toast'] = ['type' => 'success', 'message' => 'Sukses menambah mutasi stok masuk!'];
+        $_SESSION['toast'] = ['type' => 'success', 'message' => 'Berhasil menambahkan data stok masuk!'];
     } catch (Exception $e) {
         $conn->rollback();
-        $_SESSION['toast'] = ['type' => 'error', 'message' => 'Gagal memproses data stok masuk.'];
+        $_SESSION['toast'] = ['type' => 'error', 'message' => 'Gagal menambahkan data stok masuk.'];
     }
 }
 header("Location: ../pages/stok_masuk.php");

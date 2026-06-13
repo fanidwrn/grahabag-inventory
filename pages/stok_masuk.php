@@ -44,7 +44,7 @@ if (count($where_clauses) > 0) {
     $where_sql = "WHERE " . implode(" AND ", $where_clauses);
 }
 
-// Ambil data Stok Masuk (Join ke tabel material untuk nama & unit)
+// Ambil data Stok Masuk
 $query_stock = "SELECT s.*, m.material_name, m.unit, sp.supplier_name 
                 FROM stock_in s 
                 JOIN material m ON s.material_id = m.material_id 
@@ -149,7 +149,7 @@ $total_rows = $stock_entries->num_rows;
                     <?php endwhile; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="9" style="text-align: center; color: var(--text-secondary); padding: 40px 0;">Tidak ditemukan riwayat stok masuk.</td>
+                        <td colspan="9" style="text-align: center; color: var(--text-secondary); padding: 40px 0;">Belum ada data stok masuk.</td>
                     </tr>
                 <?php endif; ?>
             </tbody>

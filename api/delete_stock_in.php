@@ -31,10 +31,10 @@ if (isset($_GET['id'])) {
         }
 
         $conn->commit();
-        $_SESSION['toast'] = ['type' => 'danger', 'message' => 'Record mutasi stok masuk berhasil dihapus.'];
+        $_SESSION['toast'] = ['type' => 'success', 'message' => 'Data stok masuk berhasil dibatalkan.'];
     } catch (Exception $e) {
         $conn->rollback();
-        $_SESSION['toast'] = ['type' => 'error', 'message' => 'Gagal menghapus riwayat stok masuk.'];
+        $_SESSION['toast'] = ['type' => 'error', 'message' => 'Gagal menghapus data stok masuk.'];
     }
 }
 header("Location: ../pages/stok_masuk.php");

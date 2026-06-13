@@ -14,11 +14,11 @@ if (isset($_SESSION['username'])) {
     $last_read_date = date('Y-m-d', strtotime($last_notif_read));
     $today = date('Y-m-d');
     
-    // Check critical stock
+    // Cek stok kritis
     $res_kritis = $conn->query("SELECT COUNT(*) as count FROM material WHERE stock <= minimum_stock");
     $kritis_count = $res_kritis ? $res_kritis->fetch_assoc()['count'] : 0;
     
-    // Check pengajuan
+    // Cek pengajuan
     $res_purchase = $conn->query("SELECT COUNT(*) as count FROM material_purchase WHERE updated_at > '$last_notif_read'");
     $purchase_count = $res_purchase ? $res_purchase->fetch_assoc()['count'] : 0;
     

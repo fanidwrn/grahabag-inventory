@@ -52,10 +52,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         $conn->commit();
-        $_SESSION['toast'] = ['type' => 'success', 'message' => 'Sukses mengeluarkan item material pilihan ke divisi produksi!'];
+        $_SESSION['toast'] = ['type' => 'success', 'message' => 'Berhasil menambahkan data stok keluar'];
     } catch (Exception $e) {
         $conn->rollback();
-        $_SESSION['toast'] = ['type' => 'error', 'message' => '✕ Gagal: ' . $e->getMessage()];
+        $_SESSION['toast'] = ['type' => 'error', 'message' => 'Gagal menambahkan data stok keluar'];
     }
 }
 header("Location: ../pages/stok_keluar.php");
