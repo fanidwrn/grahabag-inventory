@@ -2,7 +2,7 @@ CREATE DATABASE IF NOT EXISTS db_grahabag CHARACTER SET utf8mb4 COLLATE utf8mb4_
 USE db_grahabag;
 
 CREATE TABLE users (
-    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT(10) AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
     full_name VARCHAR(100) NOT NULL,
     password VARCHAR(255) NOT NULL,
@@ -11,30 +11,30 @@ CREATE TABLE users (
 ) ENGINE=InnoDB;
 
 CREATE TABLE login_logs (
-    log_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
+    log_id INT(10) AUTO_INCREMENT PRIMARY KEY,
+    user_id INT(10) NOT NULL,
     login_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 CREATE TABLE category (
-    category_id INT AUTO_INCREMENT PRIMARY KEY,
+    category_id INT(10) AUTO_INCREMENT PRIMARY KEY,
     category_name VARCHAR(50) NOT NULL
 ) ENGINE=InnoDB;
 
 CREATE TABLE material (
-    material_id INT AUTO_INCREMENT PRIMARY KEY,
-    category_id INT NOT NULL,
+    material_id INT(10) AUTO_INCREMENT PRIMARY KEY,
+    category_id INT(10) NOT NULL,
     material_name VARCHAR(100) NOT NULL,
-    stock INT NOT NULL DEFAULT 0,
-    unit VARCHAR(255) NOT NULL,
-    minimum_stock INT NOT NULL DEFAULT 0,
+    stock INT(10) NOT NULL DEFAULT 0,
+    unit VARCHAR(100) NOT NULL,
+    minimum_stock INT(10) NOT NULL DEFAULT 0,
     price DECIMAL(10,2) NOT NULL,
     FOREIGN KEY (category_id) REFERENCES category(category_id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE suppliers (
-    supplier_id INT AUTO_INCREMENT PRIMARY KEY,
+    supplier_id INT(10) AUTO_INCREMENT PRIMARY KEY,
     supplier_name VARCHAR(50) NOT NULL,
     email VARCHAR(100) NOT NULL,
     no_telp VARCHAR(50) NOT NULL,
@@ -42,11 +42,11 @@ CREATE TABLE suppliers (
 ) ENGINE=InnoDB;
 
 CREATE TABLE material_purchase (
-    purchase_id INT AUTO_INCREMENT PRIMARY KEY,
-    material_id INT NOT NULL,
-    supplier_id INT NOT NULL,
-    user_id INT NOT NULL,
-    total INT NOT NULL,
+    purchase_id INT(10) AUTO_INCREMENT PRIMARY KEY,
+    material_id INT(10) NOT NULL,
+    supplier_id INT(10) NOT NULL,
+    user_id INT(10) NOT NULL,
+    total INT(10) NOT NULL,
     purchase_date DATE NOT NULL,
     status ENUM('pending', 'approved', 'rejected', 'cancelled') DEFAULT 'pending',
     contact_method ENUM('whatsapp', 'email') DEFAULT 'whatsapp',
@@ -58,12 +58,12 @@ CREATE TABLE material_purchase (
 ) ENGINE=InnoDB;
 
 CREATE TABLE stock_in (
-    stock_in_id INT AUTO_INCREMENT PRIMARY KEY,
-    material_id INT NOT NULL,
-    supplier_id INT NULL,
-    user_id INT NOT NULL,
+    stock_in_id INT(10) AUTO_INCREMENT PRIMARY KEY,
+    material_id INT(10) NOT NULL,
+    supplier_id INT(10) NULL,
+    user_id INT(10) NOT NULL,
     date_stock_in DATE NOT NULL,
-    total_in INT NOT NULL,
+    total_in INT(10) NOT NULL,
     description_in TEXT,
     photo VARCHAR(255) NULL,
     FOREIGN KEY (material_id) REFERENCES material(material_id),
@@ -72,11 +72,11 @@ CREATE TABLE stock_in (
 ) ENGINE=InnoDB;
 
 CREATE TABLE stock_out (
-    stock_out_id INT AUTO_INCREMENT PRIMARY KEY,
-    material_id INT NOT NULL,
-    user_id INT NOT NULL,
+    stock_out_id INT(10) AUTO_INCREMENT PRIMARY KEY,
+    material_id INT(10) NOT NULL,
+    user_id INT(10) NOT NULL,
     date_stock_out DATE NOT NULL,
-    total_out INT NOT NULL,
+    total_out INT(10) NOT NULL,
     description_out TEXT,
     photo VARCHAR(255) NULL,
     FOREIGN KEY (material_id) REFERENCES material(material_id),
