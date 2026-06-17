@@ -44,7 +44,7 @@ function getLaporanData($conn, $start, $end) {
                                       + COALESCE((SELECT SUM(total_out) FROM stock_out WHERE material_id = m.material_id AND date_stock_out > ?), 0)
                                      ) AS calculated_stock
                                      FROM material m 
-                                     JOIN category_id c ON m.category_id = c.category_id
+                                     JOIN category c ON m.category_id = c.category_id
                                      ORDER BY c.category_name ASC");
     $stmt_material->bind_param("ss", $end, $end);
     $stmt_material->execute();

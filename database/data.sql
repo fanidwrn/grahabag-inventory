@@ -4,7 +4,7 @@ INSERT INTO users (username, full_name, password, role) VALUES
 ('admin_gudang', 'Admin Gudang', 'admin123', 'admin'),
 ('owner_grahabag', 'Owner', 'owner123', 'owner');
 
-INSERT INTO category_id (category_name) VALUES
+INSERT INTO category (category_name) VALUES
 ('Kain'),
 ('Benang'),
 ('Resleting'),

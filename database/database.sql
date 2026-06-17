@@ -17,7 +17,7 @@ CREATE TABLE login_logs (
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
-CREATE TABLE category_id (
+CREATE TABLE category (
     category_id INT AUTO_INCREMENT PRIMARY KEY,
     category_name VARCHAR(50) NOT NULL
 ) ENGINE=InnoDB;
@@ -30,7 +30,7 @@ CREATE TABLE material (
     unit VARCHAR(255) NOT NULL,
     minimum_stock INT NOT NULL DEFAULT 0,
     price DECIMAL(10,2) NOT NULL,
-    FOREIGN KEY (category_id) REFERENCES category_id(category_id)
+    FOREIGN KEY (category_id) REFERENCES category(category_id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE suppliers (

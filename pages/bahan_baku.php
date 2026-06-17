@@ -9,7 +9,7 @@ if (!isset($_SESSION['username'])) {
 }
 
 // Ambil data kategori
-$categories_res = $conn->query("SELECT * FROM category_id ORDER BY category_name ASC");
+$categories_res = $conn->query("SELECT * FROM category ORDER BY category_name ASC");
 $categories_data = [];
 while ($cat = $categories_res->fetch_assoc()) {
     $categories_data[] = $cat;
@@ -17,7 +17,7 @@ while ($cat = $categories_res->fetch_assoc()) {
 
 // Ambil data bahan baku utama
 $query_material = "SELECT m.*, c.category_name FROM material m 
-                   JOIN category_id c ON m.category_id = c.category_id 
+                   JOIN category c ON m.category_id = c.category_id 
                    ORDER BY m.material_id ASC";
 $materials = $conn->query($query_material);
 $total_bahan = $materials->num_rows;
