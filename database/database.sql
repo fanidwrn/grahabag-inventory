@@ -50,7 +50,6 @@ CREATE TABLE material_purchase (
     purchase_date DATE NOT NULL,
     status ENUM('pending', 'approved', 'rejected', 'cancelled') DEFAULT 'pending',
     contact_method ENUM('whatsapp', 'email') DEFAULT 'whatsapp',
-    email_status ENUM('sent', 'not_sent') DEFAULT 'not_sent',
     description TEXT,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (material_id) REFERENCES material(material_id),
